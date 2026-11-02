@@ -11,10 +11,10 @@
 | 항목 | 내용 |
 |---|---|
 | 프로젝트명 | 닿음 (Dahum) |
+| 참여 프로그램 | [EST AI Challengers 제주 해커톤](https://estsoft.ai/all/est-ai-challengers-jeju-day1) |
 | 개발 기간 | 2026.08.18 ~ 2026.08.19 (무박 2일) |
 | 팀 구성 | 5명 |
 | 프로젝트 주제 | AI 기반 가족 보안 서비스 |
-| 참여 행사 | [EST AI Challengers 제주 해커톤](https://estsoft.ai/all/est-ai-challengers-jeju-day1) |
 
 ---
 
