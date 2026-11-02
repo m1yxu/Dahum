@@ -1,4 +1,4 @@
-# 닿음 (Dahum)
+# 🔐 닿음 (Dahum)
 
 **AI 기반 가족 보안 서비스**
 
@@ -6,7 +6,19 @@
 
 ---
 
-## 01. Background
+## 01. Project Overview
+
+| 항목 | 내용 |
+|---|---|
+| 프로젝트명 | 닿음 (Dahum) |
+| 개발 기간 | 2026.08.18 ~ 2026.08.19 (무박 2일) |
+| 팀 구성 | 5명 |
+| 프로젝트 주제 | AI 기반 가족 보안 서비스 |
+| 참여 행사 | [EST AI Challengers 제주 해커톤](https://estsoft.ai/all/est-ai-challengers-jeju-day1) |
+
+---
+
+## 02. Background
 
 기존 보안 서비스는 악성 앱 탐지에는 강점이 있지만, 보안 지식이 부족한 사용자는 위험 알림만으로 왜 위험한지, 어떻게 대응해야 하는지 이해하기 어렵습니다. 특히 디지털 보안에 익숙하지 않은 부모님 세대가 단순한 위험 알림만으로 적절한 대응을 판단하기 어렵다는 점에 주목했습니다.
 
@@ -18,28 +30,23 @@
 
 ---
 
-## 02. Project Overview
-
-| 항목 | 내용 |
-|---|---|
-| 프로젝트명 | 닿음 (Dahum) |
-| 프로그램 | EST AI Challengers 제주 해커톤 |
-| 개발 기간 | 2026.08.18 ~ 2026.08.19 (무박 2일) |
-| 팀 구성 | 5명 |
-| 프로젝트 주제 | AI 기반 가족 보안 서비스 |
-
-🔗 [EST AI Challengers 제주 해커톤 공식 페이지](https://estsoft.ai/all/est-ai-challengers-jeju-day1)
-
----
-
 ## 03. Key Features
 
-| 주요 기능 | 설명 |
-|---|---|
-| 이미지 기반 앱 정보 추출 | 스마트폰 앱 목록 이미지를 OCR로 분석 |
-| 악성 앱 탐지 | 추출한 패키지명을 기반으로 악성 앱 데이터 조회 |
-| AI 분석 및 쉬운 설명 | 분석 결과를 사용자가 이해하기 쉬운 언어로 제공 |
-| 보호자 대응 가이드 | 보호자가 상황에 맞게 대응할 수 있도록 안내 |
+### 1. 이미지 기반 앱 정보 추출
+
+사용자가 스마트폰에 설치된 앱 목록 이미지를 업로드하면 CLOVA OCR API를 통해 이미지 속 텍스트를 추출합니다. 추출된 텍스트에서 정규식 기반으로 앱 패키지명을 식별하여 이후 악성 앱 탐지에 활용할 수 있는 데이터로 변환합니다.
+
+### 2. 악성 앱 탐지 및 데이터 조회
+
+OCR을 통해 추출한 패키지명을 악성 앱 탐지 데이터와 비교하여 위험 여부를 확인합니다. 사전에 구축한 악성 앱 데이터셋을 활용해 앱 정보를 조회하고, 사용자가 의심스러운 앱을 확인할 수 있도록 분석 결과를 제공합니다.
+
+### 3. AI 기반 분석 및 쉬운 설명
+
+검색된 악성 앱 관련 정보를 바탕으로 AI가 보안 지식이 부족한 사용자도 이해할 수 있는 설명을 제공하도록 설계했습니다. 전문적인 보안 용어를 그대로 전달하는 대신 위험 요소와 주의사항을 쉽게 이해할 수 있도록 안내하는 것이 핵심입니다.
+
+### 4. 보호자 대응 가이드
+
+분석 결과를 확인하는 데서 끝나지 않고, 보호자가 위험 상황을 이해하고 적절하게 대응할 수 있도록 안내하는 기능입니다. 특히 디지털 보안에 익숙하지 않은 부모님 세대도 결과를 이해하고 필요한 조치를 판단할 수 있도록 돕는 것을 목표로 합니다.
 
 ---
 
@@ -79,36 +86,7 @@
 
 ## 06. System Architecture
 
-```mermaid
-flowchart TD
-    A["사용자<br/>앱 목록 이미지 업로드"] --> B["Frontend<br/>React · TypeScript"]
-
-    B --> C["Backend<br/>Spring Boot · REST API"]
-
-    C --> D["OCR Processing<br/>CLOVA OCR API"]
-    D --> E["OCR 결과 텍스트"]
-
-    E --> F["Package Extraction<br/>정규식 기반 패키지명 추출"]
-
-    F --> G["Data Processing<br/>Python · Pandas"]
-    G --> H[("악성 앱 탐지 DB<br/>2,522개 고유 패키지")]
-
-    H --> I["AI Analysis<br/>FastAPI · RAG"]
-    I --> J["분석 결과 및 대응 가이드"]
-
-    J --> C
-    C --> K["Frontend Result"]
-    K --> L["사용자 분석 결과"]
-    K --> M["보호자 대응 가이드"]
-
-    classDef mine fill:#173D2B,stroke:#7CFF6B,color:#FFFFFF,stroke-width:2px
-    classDef normal fill:#1C2530,stroke:#64748B,color:#FFFFFF
-    classDef output fill:#243B30,stroke:#7CFF6B,color:#FFFFFF
-
-    class F,G,H mine
-    class A,B,C,D,E,I,J normal
-    class K,L,M output
-```
+![Dahum System Architecture](docs/images/system-architecture.svg)
 
 > **My Contribution:** 데이터 분석 및 전처리, 패키지명 추출, 악성 앱 탐지 DB 구축, OCR·백엔드 API 연동
 
@@ -189,6 +167,8 @@ Dahum/
 │   └── scripts/              # 자동 배포 및 운영 스크립트
 │
 ├── docs/                     # 프로젝트 설계 및 기술 문서
+│   └── images/
+│       └── system-architecture.svg
 │
 ├── .github/
 │   └── workflows/            # GitHub Actions 자동화
